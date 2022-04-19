@@ -1,0 +1,359 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Filters - 33-Let&#x27;s &quot;Hear&quot; the sound- Audio Processing with ML</title>
+                
+
+        <!-- Custom HTML head -->
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+                <link rel="icon" href="../../favicon.svg">
+                        <link rel="shortcut icon" href="../../favicon.png">
+                <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+                <link rel="stylesheet" href="../../css/print.css" media="print">
+        
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+                <link rel="stylesheet" href="../../fonts/fonts.css">
+        
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../../Task_1/Task_1.html"><strong aria-hidden="true">1.</strong> Task 1</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../Task_1/Notes/Intro.html"><strong aria-hidden="true">1.1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../../Task_1/Notes/Filters.html" class="active"><strong aria-hidden="true">1.2.</strong> Filters</a></li><li class="chapter-item expanded "><a href="../../Task_1/Notes/AudioComp.html"><strong aria-hidden="true">1.3.</strong> What an audio is made of</a></li></ol></li><li class="chapter-item expanded "><a href="../../Task_2/Task_2.html"><strong aria-hidden="true">2.</strong> Task 2</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../Task_2/Notes/Feature_extraction/notes.html"><strong aria-hidden="true">2.1.</strong> Feature Extraction-1</a></li><li class="chapter-item expanded "><a href="../../Task_2/Notes/Feature_extraction/AudioFeatureExtraction.html"><strong aria-hidden="true">2.2.</strong> Feature Extraction-2</a></li><li class="chapter-item expanded "><a href="../../Task_2/Notes/Onset_Detection/notes.html"><strong aria-hidden="true">2.3.</strong> Onset Detection</a></li><li class="chapter-item expanded "><a href="../../Task_2/Notes/Spatial_Filtering/notes.html"><strong aria-hidden="true">2.4.</strong> Spatial Filtering</a></li><li class="chapter-item expanded "><a href="../../Task_2/Notes/Cocktail_Party/notes.html"><strong aria-hidden="true">2.5.</strong> Cocktail Party Problem</a></li></ol></li><li class="chapter-item expanded "><a href="../../Task_3/Task_3..html"><strong aria-hidden="true">3.</strong> Task 3</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../Task_3/Notes/Task_3.html"><strong aria-hidden="true">3.1.</strong> Urban Sound Classification</a></li></ol></li><li class="chapter-item expanded "><a href="../../Task_4/Task_4.html"><strong aria-hidden="true">4.</strong> Task 4</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../Task_4/Notes/Intro.html"><strong aria-hidden="true">4.1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../../Task_4/Notes/IntroSkipButton.html"><strong aria-hidden="true">4.2.</strong> Implementing the button</a></li></ol></li><li class="chapter-item expanded "><a href="../../Task_5/Task_5.html"><strong aria-hidden="true">5.</strong> Task 5</a></li><li class="spacer"></li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title">33-Let&#x27;s &quot;Hear&quot; the sound- Audio Processing with ML</h1>
+
+                    <div class="right-buttons">
+                                                <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                                                        
+                    </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="task-1"><a class="header" href="#task-1">Task 1</a></h1>
+<h2 id="understanding-various-methods-of-filtering"><a class="header" href="#understanding-various-methods-of-filtering">Understanding various methods of filtering</a></h2>
+<h3 id="introduction-to-filters"><a class="header" href="#introduction-to-filters">INTRODUCTION TO FILTERS</a></h3>
+<ul>
+<li>
+<p>Filters are circuits that can isolate certain frequencies in order to reject/ amplify them from a digital audio signal.</p>
+</li>
+<li>
+<p>Applications include:</p>
+<ol>
+<li><em><strong>Radio Communications</strong></em>: Rejects all the frequencies apart from the desired signal.</li>
+<li><em><strong>DC power supplies</strong></em>: Used to eliminate noise in high frequency present in AC input.</li>
+<li><em><strong>Audio electronics</strong></em>: Used to channel different ranges of frequencies to woofers, speakers and tweeters.</li>
+<li><em><strong>Analog-to-digital conversion</strong></em>: Filters are placed in front of an ADC input to minimize aliasing.</li>
+</ol>
+</li>
+<li>
+<p>Some of the important terms are:</p>
+</li>
+</ul>
+<ol>
+<li><em><strong>Response Curves</strong></em>: Response curves are used to describe how a filter behaves. A response curve is simply a graph showing an attenuation ratio (VOUT / VIN) versus frequency . Attenuation is commonly expressed in units of decibels (dB). Frequency can be expressed in two forms: either the angular form ω (units are rad/s) or the more common form of f (units of Hz, i.e.. cycles per second).
+<ol start="2">
+<li><em><strong>Bandwidth (β or B.W.)</strong></em>: The bandwidth is the width of the <em>passband</em>, and the <strong>passband is the band of frequencies that do not experience significant attenuation when moving from the input of the filter to the output of the filter</strong>.</li>
+<li><em><strong>Stopband frequency (fs)</strong></em>: This is a particular frequency at which the attenuation reaches a specified value.</li>
+<li>For low-pass and high-pass filters, frequencies beyond the stopband frequency are referred to as the stopband.</li>
+<li>For band-pass and notch filters, two stopband frequencies exist. The frequencies between these two stopband frequencies are referred to as the stopband.</li>
+</ol>
+</li>
+</ol>
+<h3 id="types-of-filters"><a class="header" href="#types-of-filters">TYPES OF FILTERS</a></h3>
+<ol>
+<li>
+<p><strong>Low Pass Filters</strong></p>
+</li>
+<li>
+<p><strong>High-pass Filters</strong></p>
+</li>
+<li>
+<p><strong>Bandpass Filters</strong></p>
+</li>
+<li>
+<p><strong>Band-reject Filters/Notch Filters</strong></p>
+</li>
+</ol>
+<p><img src="https://www.allaboutcircuits.com/uploads/articles/four_major_filters.jpg" alt="Figure: Types of filters" /></p>
+<p>​																			<em>Different types of filters</em></p>
+<p><img src="https://www.allaboutcircuits.com/uploads/articles/Davis_intro_to_filters_filter_types.jpg" alt="Response Curves" /></p>
+<p>​																<em>Response curves of the different filters</em></p>
+<ul>
+<li>
+<p>They can also be classified as:</p>
+<ol>
+<li><strong>Finite Impulse Response filters</strong></li>
+<li><strong>Infinite Impulse Response filters</strong></li>
+</ol>
+</li>
+</ul>
+<h4 id="finite-impulse-response-filters-fir"><a class="header" href="#finite-impulse-response-filters-fir">FINITE IMPULSE RESPONSE FILTERS (FIR)</a></h4>
+<ul>
+<li>
+<p>Impulse response of finite duration.</p>
+</li>
+<li>
+<p>Provide Linear phase characteristics.</p>
+</li>
+<li>
+<p>Always stable.</p>
+</li>
+<li>
+<p>Can be used for more complex circuits.</p>
+</li>
+</ul>
+<h4 id="infinite-impulse-response-filters-iir"><a class="header" href="#infinite-impulse-response-filters-iir">INFINITE IMPULSE RESPONSE FILTERS (IIR)</a></h4>
+<ul>
+<li>Impulse response of infinite duration.</li>
+<li>Non linear phase characteristics.</li>
+<li>They are unstable. </li>
+<li>Used for less complexity.</li>
+</ul>
+<h3 id="iir-filters"><a class="header" href="#iir-filters">IIR FILTERS</a></h3>
+<h4 id="butterworth-filters"><a class="header" href="#butterworth-filters">BUTTERWORTH FILTERS</a></h4>
+<ul>
+<li>
+<p>Designed to have a frequency response as flat as possible in the passband.</p>
+</li>
+<li>
+<p>The frequency response of the Butterworth filter is <strong>maximally flat ( has no ripples) in the passband</strong> and <strong>rolls off towards zero in the stopband</strong>.</p>
+</li>
+</ul>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/a/a8/Butterworth_filter_bode_plot.svg" alt="Butterworth bode plot" /></p>
+<h4 id="chebyshev-filters"><a class="header" href="#chebyshev-filters">CHEBYSHEV FILTERS</a></h4>
+<ul>
+<li>Have a steeper roll off than Butterworth filters.</li>
+<li>Minimise the error between the idealized and the actual filter characteristic over the range of the filter with ripples in passband.</li>
+<li>Because of presence of ripple in the pass band, it is not chosen in applications needing smoother response in passband.</li>
+</ul>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/c/c2/Chebyshev_Type_I_Filter_Response_%284th_Order%29.svg" alt="" /></p>
+<h4 id="elliptic-filters"><a class="header" href="#elliptic-filters">ELLIPTIC FILTERS</a></h4>
+<ul>
+<li>Equalised ripple behaviour in both passband and stop band.</li>
+<li>The amount of ripple in each band is independently adjustable, and no other filter of equal order can have a faster transition in gain between the passband and the stopband, for the given values of ripple.</li>
+<li>As the ripple in the stopband approaches 0, the filter becomes a type I Chebyshev filter. </li>
+<li>As the ripple in the passband approaches 0, the filter becomes a type II Chebyshev filter.</li>
+<li>As both ripple values approach 0, the filter becomes a Butterworth filter.</li>
+</ul>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/d/de/Elliptic_Filter_Response_%284th_Order%29.svg" alt="Elliptic response" /></p>
+<h4 id="bessel-filter"><a class="header" href="#bessel-filter">BESSEL FILTER</a></h4>
+<ul>
+<li>
+<p>Analog linear filter with a maximally flat group/phase delay (maximally linear phase response), which preserves the wave shape of filtered signals in the passband.</p>
+</li>
+<li>
+<p>Transition from the pass band to the stop band is much slower than for other filters. </p>
+</li>
+<li>
+<p>But the group delay is practically constant in the passband.</p>
+</li>
+<li>
+<p>Maximizes the flatness of the group delay curve at zero frequency.</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/e/ee/Bessel4_GainDelay.png" alt="Bessel" /></p>
+<p>​										<em>A plot of the gain and group delay for a fourth-order low pass Bessel filter.</em></p>
+</li>
+</ul>
+<h3 id="fir-filters"><a class="header" href="#fir-filters">FIR FILTERS</a></h3>
+<h4 id="hamming-and-hanning-windows"><a class="header" href="#hamming-and-hanning-windows">HAMMING AND HANNING WINDOWS</a></h4>
+<ul>
+<li>
+<p>Window function is a mathematical function that is zero-valued outside of some chosen interval, normally symmetric around the middle of the interval, usually near a maximum in the middle, and usually tapering away from the middle.</p>
+<p><img src="https://in.tek.com/-/media/sites/default/files/u811871/blackman-harris-t.png" alt="Window function" /></p>
+</li>
+</ul>
+<h5 id="hanning-window"><a class="header" href="#hanning-window">HANNING WINDOW</a></h5>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/f/f7/Window_function_and_its_Fourier_transform_%E2%80%93_Hann_%28n_%3D_0...N%29.svg" alt="Hanning window" /></p>
+<h5 id="hamming-window"><a class="header" href="#hamming-window">HAMMING WINDOW</a></h5>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Window_function_and_frequency_response_-_Hamming_%28alpha_%3D_0.53836%2C_n_%3D_0...N%29.svg" alt="Hamming window" /></p>
+<h5 id="difference"><a class="header" href="#difference">DIFFERENCE</a></h5>
+<ul>
+<li>Hanning window touches zero at both ends, removing any discontinuity. The Hamming window stops just shy of zero, meaning that the signal will still have a slight discontinuity.</li>
+</ul>
+<p><img src="https://in.tek.com/-/media/sites/default/files/u811871/hamming-t.png" alt="Comparison" /></p>
+<h3 id="comparing-iir-filters"><a class="header" href="#comparing-iir-filters">COMPARING IIR FILTERS</a></h3>
+<ul>
+<li>
+<p>Here is an image showing the gain of a discrete-time Butterworth filter next to other common filter types. All of these filters are fifth-order.</p>
+</li>
+<li>
+<p>The Butterworth filter rolls off more slowly around the cut-off frequency than the Chebyshev filter or the Elliptic filter, but without ripple.</p>
+</li>
+<li>
+<p>Chebyshev filters are sharper than the Butterworth filter; they are not as sharp as the elliptic one, but they show fewer ripples over the bandwidth.</p>
+</li>
+<li>
+<p>Elliptic filters are sharper than all the others, but they show ripples on the whole bandwidth.</p>
+</li>
+</ul>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Filters_order5.svg" alt="Comparison" /></p>
+<h3 id="advantages-of-iir-over-fir-filters"><a class="header" href="#advantages-of-iir-over-fir-filters">ADVANTAGES OF IIR OVER FIR FILTERS</a></h3>
+<ul>
+<li>IIR filters achieve desired filtering characteristics using lesser memory.</li>
+<li>Has higher computational efficiency and shorter delay.</li>
+<li>Can be used to implement analog filter responses.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                                                    <a rel="prev" href="../../Task_1/Notes/Intro.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                                                    <a rel="next" href="../../Task_1/Notes/AudioComp.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                                    <a rel="prev" href="../../Task_1/Notes/Intro.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                                    <a rel="next" href="../../Task_1/Notes/AudioComp.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                            </nav>
+
+        </div>
+
+        
+        
+        
+                <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+        
+                <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        
+    </body>
+</html>
