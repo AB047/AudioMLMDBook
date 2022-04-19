@@ -1,0 +1,6 @@
+[book]
+authors = ["AB047"]
+language = "en"
+multilingual = false
+src = "src"
+title = "33-Let's \"Hear\" the sound- Audio Processing with ML"

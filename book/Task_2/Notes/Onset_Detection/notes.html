@@ -1,0 +1,303 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Onset Detection - 33-Let's &quot;Hear&quot; the sound- Audio Processing with ML</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../../../favicon.png">
+        <link rel="stylesheet" href="../../../css/variables.css">
+        <link rel="stylesheet" href="../../../css/general.css">
+        <link rel="stylesheet" href="../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../../highlight.css">
+        <link rel="stylesheet" href="../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../../../Task_1/Task_1.html"><strong aria-hidden="true">1.</strong> Task 1</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../Task_1/Notes/Intro.html"><strong aria-hidden="true">1.1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../../../Task_1/Notes/Filters.html"><strong aria-hidden="true">1.2.</strong> Filters</a></li><li class="chapter-item expanded "><a href="../../../Task_1/Notes/AudioComp.html"><strong aria-hidden="true">1.3.</strong> What an audio is made of</a></li></ol></li><li class="chapter-item expanded "><a href="../../../Task_2/Task_2.html"><strong aria-hidden="true">2.</strong> Task 2</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../Task_2/Notes/Feature_extraction/notes.html"><strong aria-hidden="true">2.1.</strong> Feature Extraction-1</a></li><li class="chapter-item expanded "><a href="../../../Task_2/Notes/Feature_extraction/AudioFeatureExtraction.html"><strong aria-hidden="true">2.2.</strong> Feature Extraction-2</a></li><li class="chapter-item expanded "><a href="../../../Task_2/Notes/Onset_Detection/notes.html" class="active"><strong aria-hidden="true">2.3.</strong> Onset Detection</a></li><li class="chapter-item expanded "><a href="../../../Task_2/Notes/Spatial_Filtering/notes.html"><strong aria-hidden="true">2.4.</strong> Spatial Filtering</a></li><li class="chapter-item expanded "><a href="../../../Task_2/Notes/Cocktail_Party/notes.html"><strong aria-hidden="true">2.5.</strong> Cocktail Party Problem</a></li></ol></li><li class="chapter-item expanded "><a href="../../../Task_3/Task_3..html"><strong aria-hidden="true">3.</strong> Task 3</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../Task_3/Notes/Task_3.html"><strong aria-hidden="true">3.1.</strong> Urban Sound Classification</a></li></ol></li><li class="chapter-item expanded "><a href="../../../Task_4/Task_4.html"><strong aria-hidden="true">4.</strong> Task 4</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../Task_4/Notes/Intro.html"><strong aria-hidden="true">4.1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../../../Task_4/Notes/IntroSkipButton.html"><strong aria-hidden="true">4.2.</strong> Implementing the button</a></li></ol></li><li class="chapter-item expanded "><a href="../../../Task_5/Task_5.html"><strong aria-hidden="true">5.</strong> Task 5</a></li><li class="spacer"></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">33-Let's &quot;Hear&quot; the sound- Audio Processing with ML</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2><a class="header" href="#onset-detection-methods" id="onset-detection-methods">ONSET DETECTION METHODS</a></h2>
+<p>Approaches to onset detection can operate in the <a href="https://en.wikipedia.org/wiki/Time_domain">time domain</a>, <a href="https://en.wikipedia.org/wiki/Frequency_domain">frequency domain</a>, <a href="https://en.wikipedia.org/wiki/Phase_(waves)">phase</a> domain, or <a href="https://en.wikipedia.org/wiki/Complex_plane">complex domain</a>, and include looking for:</p>
+<ul>
+<li>Increases in spectral energy</li>
+<li>Changes in spectral energy distribution (<a href="https://en.wikipedia.org/wiki/Spectral_flux">spectral flux</a>) or <a href="https://en.wikipedia.org/wiki/Phase_(waves)">phase</a></li>
+<li>Changes in detected pitch - e.g. using a <a href="https://en.wikipedia.org/wiki/Polyphony">polyphonic</a> <a href="https://en.wikipedia.org/wiki/Pitch_detection_algorithm">pitch detection algorithm</a></li>
+<li>Spectral patterns recognisable by <a href="https://en.wikipedia.org/wiki/Machine_learning">machine learning</a> techniques such as <a href="https://en.wikipedia.org/wiki/Neural_network">neural networks</a>.</li>
+</ul>
+<p><strong>Transients vs. Onsets vs. Attacks</strong></p>
+<p>A central issue here is to make a clear distinction between the related concepts of transients, onsets and attacks because different applications have different needs. The similarities and differences between these key concepts are important to consider; it is similarly important to categorize all related approaches. Fig. 1 shows, in the simple case of an isolated note, how one could differentiate these notions.</p>
+<ul>
+<li>The <strong>attack</strong> of the note is the time interval during which the amplitude envelope increases.</li>
+<li>The concept of <strong>transient</strong> is more difficult to describe precisely. As apreliminary informal definition, transients are short intervals during which the signal evolves quickly in some nontrivial or relatively unpredictable way. In the case of acoustic instruments, the transient often corresponds to the period during which the excitation (e.g., a hammer strike) is applied and then damped, leaving only the slow decay at the resonance frequencies of the body. Central to this time duration problem is the issue of the useful time resolution: we will assume that the human ear cannot distinguish between two transients less than 10 ms apart. Note that the release or offset of a sustained sound can also be considered a transient period.</li>
+<li>The <strong>onset</strong> of the note is a single instant chosen to mark the temporally extended transient. In most cases, it will coincide with the start of the transient, or the earliest time at which the transient can be reliably detected.</li>
+</ul>
+<p>Figure shows, in the simple case of an isolated note, how one could differentiate these notions.</p>
+<p><img src="./fig1.png" alt="fig1" /></p>
+<h3><a class="header" href="#algorithm-for-onset-detection" id="algorithm-for-onset-detection">ALGORITHM FOR ONSET DETECTION</a></h3>
+<p>Usually this algorithm is used for onset detection:</p>
+<p><strong>1. PREPROCESSING</strong></p>
+<ul>
+<li>The concept of pre-processing implies the transformation of the original signal in order to accentuate or attenuate various aspects of the signal according to their relevance to the task in hand. </li>
+<li>It is an optional step that derives its relevance from the process or processes to be subsequently performed. There are a number of different treatments that can be applied to a musical signal in order to facilitate the task of onset detection. </li>
+<li>There are a number of different treatments that can be applied to a musical signal, but <em>Multiple Bands</em> and <em>Transient / Steady state separation</em> are communally used.</li>
+</ul>
+<p><strong>2 . REDUCTION</strong></p>
+<ul>
+<li>In the context of onset detection, the concept of reduction refers to the process of transforming the audio signal into a highly subsampled detection function which manifests the occurrence of transients in the original signal. </li>
+<li>This is the key process in a wide class of onset detection schemes and will therefore be the focus of most of our review. We will broadly divide reduction methods in two groups : 
+<ol>
+<li><em>Methods based on the use of explicitly predefined signal features</em></li>
+<li>Methods <em>based on probabilistic signal models.</em></li>
+</ol>
+</li>
+</ul>
+<p><strong>3. PEAK-PICKING</strong></p>
+<ul>
+<li>If the detection function has been suitably designed, then onsets or other abrupt events will give rise to well-localized identifiable features in the detection function. </li>
+<li>Commonly, these features are local maxima (i.e. peaks), generally subject to some level of variability in size and shape, and masked by ‘noise’, either due to actual noise in the signal, or other aspects of the signal not specifically to do with onsets, such as vibrato. </li>
+<li>Therefore a robust peak-picking algorithm is needed to estimate the onset times of events within the analysis signal. We will divide the process of peak-picking a detection function in three steps: <em><strong>post-processing</strong></em>,  <em><strong>thresholding</strong></em>, and a <em><strong>final decision process</strong></em>.</li>
+</ul>
+<p><img src="./fig2.png" alt="fig2" /></p>
+<h2><a class="header" href="#onset-detection-functions" id="onset-detection-functions">Onset Detection Functions</a></h2>
+<p>Onset detection function(ODF) is primarily an undersampled version of the original music signal. <em>We divide the signal into partially overlapping frames and the ODF consists of one value for each frame. By the definition of an onset, we can say that onset detection is the process of identifying which parts of a signal are relatively unpredictable.</em> </p>
+<p>Hence, each value in an ODF should give a good indication as to the measure of the unpredictability of that frame. The vector of these values (obtained using methods discussed later) is passed to the peak-detection algorithm for onset detection.</p>
+<p><img src="./fig3.png" alt="fig3" /></p>
+<h3><a class="header" href="#types-of-odfs" id="types-of-odfs">Types of ODFs</a></h3>
+<p>Some standard ODFs are: </p>
+<ol>
+<li>Energy Method</li>
+<li>Spectral Difference Method</li>
+<li>Complex Domain Method</li>
+</ol>
+<p><strong>Energy Method</strong> : </p>
+<ul>
+<li>This is the most simple and computationally efficient method. In this method, we assume that <em>the onsets correspond to a higher energy component than the steady state notes in the music signal.</em> </li>
+</ul>
+<p><strong>Spectral Difference Method</strong> : </p>
+<ul>
+<li>
+<p>This method is successful in detecting onsets in polyphonic signals and <em>soft</em> onsets.</p>
+</li>
+<li>
+<p>This is achieved by identifying time varying changes in a frequency domain representation of audio signal.</p>
+</li>
+</ul>
+<p>**Complex Domain Method **:</p>
+<ul>
+<li>Insted of making predictions only on the magnitudes like a spectral difference method, this method attempts to improve the prediction for the next value of a given bin using combined magnitude and phase information. </li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../../../Task_2/Notes/Feature_extraction/AudioFeatureExtraction.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../../../Task_2/Notes/Spatial_Filtering/notes.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../../../Task_2/Notes/Feature_extraction/AudioFeatureExtraction.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../../../Task_2/Notes/Spatial_Filtering/notes.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            var socket = new WebSocket("ws://localhost:3001");
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

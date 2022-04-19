@@ -1,0 +1,931 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>33-Let's &quot;Hear&quot; the sound- Audio Processing with ML</title>
+        
+        <meta name="robots" content="noindex" />
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="Task_1/Task_1.html"><strong aria-hidden="true">1.</strong> Task 1</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Task_1/Notes/Intro.html"><strong aria-hidden="true">1.1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="Task_1/Notes/Filters.html"><strong aria-hidden="true">1.2.</strong> Filters</a></li><li class="chapter-item expanded "><a href="Task_1/Notes/AudioComp.html"><strong aria-hidden="true">1.3.</strong> What an audio is made of</a></li></ol></li><li class="chapter-item expanded "><a href="Task_2/Task_2.html"><strong aria-hidden="true">2.</strong> Task 2</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Task_2/Notes/Feature_extraction/notes.html"><strong aria-hidden="true">2.1.</strong> Feature Extraction-1</a></li><li class="chapter-item expanded "><a href="Task_2/Notes/Feature_extraction/AudioFeatureExtraction.html"><strong aria-hidden="true">2.2.</strong> Feature Extraction-2</a></li><li class="chapter-item expanded "><a href="Task_2/Notes/Onset_Detection/notes.html"><strong aria-hidden="true">2.3.</strong> Onset Detection</a></li><li class="chapter-item expanded "><a href="Task_2/Notes/Spatial_Filtering/notes.html"><strong aria-hidden="true">2.4.</strong> Spatial Filtering</a></li><li class="chapter-item expanded "><a href="Task_2/Notes/Cocktail_Party/notes.html"><strong aria-hidden="true">2.5.</strong> Cocktail Party Problem</a></li></ol></li><li class="chapter-item expanded "><a href="Task_3/Task_3..html"><strong aria-hidden="true">3.</strong> Task 3</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Task_3/Notes/Task_3.html"><strong aria-hidden="true">3.1.</strong> Urban Sound Classification</a></li></ol></li><li class="chapter-item expanded "><a href="Task_4/Task_4.html"><strong aria-hidden="true">4.</strong> Task 4</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Task_4/Notes/Intro.html"><strong aria-hidden="true">4.1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="Task_4/Notes/IntroSkipButton.html"><strong aria-hidden="true">4.2.</strong> Implementing the button</a></li></ol></li><li class="chapter-item expanded "><a href="Task_5/Task_5.html"><strong aria-hidden="true">5.</strong> Task 5</a></li><li class="spacer"></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">33-Let's &quot;Hear&quot; the sound- Audio Processing with ML</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#task-1" id="task-1">TASK 1</a></h1>
+<p>The task 1 consisted of:</p>
+<p>Getting acquainted with basic understanding and theory:</p>
+<p>○ What is an Audio made of? </p>
+<p>○ Understanding various methods of filtering; their explanation on why one is better or worse </p>
+<p>○ Filter design in Python </p>
+<p>● Notes in Markdown for theory on above topics for future reference </p>
+<p>● Develop basic examples on above topics to realize them with Python</p>
+<h1><a class="header" href="#sound" id="sound">SOUND</a></h1>
+<p>Sound is an analogous phenomenon – a physical phenomenon that could be represented as continuously changing voltages. </p>
+<p>Computers that we use require a discrete representation of sound. In particular, when sound is captured as data in a computer, it is represented as a <strong>list of numbers</strong>. <code>Capturing sound in a form that can be handled by a computer is a process called analog-to-digital conversion(ADC)</code>, whereby the amplitude of a sound wave is measured at evenly-spaced intervals in time – typically 44,100 times per second, or even more which is actually called the <strong>sampling rate</strong>..Once a computer has captured sound as a list of numbers, a whole host of mathematical operations can be performed on the sound to change its loudness, pitch, frequency balance, and so forth. In a digital audio editing program like Audition, a sound wave is stored as a list of numbers, corresponding to the amplitude of the sound at each point in time.</p>
+<ul>
+<li>
+<p>With regard to an audio filter, the frequency response shows how a filter boosts or attenuates the frequencies in the sound to which it is applied.</p>
+</li>
+<li>
+<p>The graph in the frequency analysis view is called a frequency response graph or simply a frequency response.</p>
+</li>
+</ul>
+<table><thead><tr><th align="left">graph type</th><th align="left">domain (x-axis)</th><th align="left">range (y-axis)</th></tr></thead><tbody>
+<tr><td align="left">impulse response</td><td align="left">time</td><td align="left">amplitude of sound at each moment in time</td></tr>
+<tr><td align="left">frequency response</td><td align="left">frequency</td><td align="left">magnitude of frequency across the audible spectrum of sound</td></tr>
+<tr><td align="left">phase response</td><td align="left">frequency</td><td align="left">phase of frequency across the audible spectrum of sound</td></tr>
+</tbody></table>
+<p><img src="http://digitalsoundandmusic.schwartzsound.com/wp-content/uploads/2014/05/Impulse-Response-1024x419.png" alt="Figure 2.21 Example impulse response graph" /></p>
+<p><img src="http://digitalsoundandmusic.schwartzsound.com/wp-content/uploads/2014/05/Phase-Response-1024x409.png" alt="Figure 2.23 Example phase response graph" /><img src="http://digitalsoundandmusic.schwartzsound.com/wp-content/uploads/2014/05/FrequencyResponse-1024x414.png" alt="Figure 2.22 Example frequency response graph" /></p>
+<p>All you need to understand is that when sound is captured and put into a form that can be handled by a computer, it is nothing more than a list of numbers, each number representing the amplitude of sound at a moment in time.</p>
+<p>Related to each impulse response graph are two other graphs – a frequency response graph that shows “how much” of each frequency is present in the instance of sound, and a phase response graph that shows the phase that each frequency component is in. Each of these two graphs covers the audible spectrum. In Section 3, you’ll be introduced to the mathematical process – the Fourier transform – that converts sound data from the time domain to the frequency and phase domain.  Applying a Fourier transform to impulse response data – i.e., amplitude represented in the time domain – yields both frequency and phase information from which you can generate a frequency response graph and a phase response graph. The frequency response graph has the magnitude of the frequency on the y-axis on whatever scale is chosen for the graph. The phase response graph has phases ranging from -180° to 180° on the y-axis.</p>
+<p>The main points to understand are these:</p>
+<ul>
+<li>A graph is a visualization of data.</li>
+<li>For any given instance of sound, you can analyze the data in terms of time, frequency, or phase, and you can graph the corresponding data.</li>
+<li>These different ways of representing sound – as amplitude of sound over time or as frequency and phase over the audible spectrum – contain essentially the same information.</li>
+<li>The Fourier transform can be used to transform the sound data from one domain of representation to another. The Fourier transform is the basis for processes applied at the user-level in sound measuring and editing software.</li>
+<li>When you work with sound, you look at it and edit it in whatever domain of representation is most appropriate for your purposes at the time. You’ll see this later in examples concerning frequency analysis of live performance spaces, room modes, precedence effect, and so forth.</li>
+</ul>
+<h1><a class="header" href="#fast-fourier-transform" id="fast-fourier-transform">FAST FOURIER TRANSFORM</a></h1>
+<p>The &quot;literal&quot; implementation of the transform is computationally expensive. The equation in Algorithm 2.1 has to be applied <em>N</em> times, where <em>N</em> is the number of audio samples. The equation itself has a summation that goes over <em>N</em> elements. Thus, the discrete Fourier transform takes on the order of  N*N operations.</p>
+<p>The <strong>fast Fourier transform (FFT)</strong> is a more efficient implementation of the Fourier transform that does on the order of  N∗log2NN∗log2N operations. The algorithm is made more efficient by eliminating duplicate mathematical operations. The FFT is the version of the Fourier transform that you'll often see in audio software and applications. For example, Adobe Audition uses the FFT to generate its frequency analysis view.</p>
+<h1><a class="header" href="#task-1-1" id="task-1-1">Task 1</a></h1>
+<h2><a class="header" href="#understanding-various-methods-of-filtering" id="understanding-various-methods-of-filtering">Understanding various methods of filtering</a></h2>
+<h3><a class="header" href="#introduction-to-filters" id="introduction-to-filters">INTRODUCTION TO FILTERS</a></h3>
+<ul>
+<li>
+<p>Filters are circuits that can isolate certain frequencies in order to reject/ amplify them from a digital audio signal.</p>
+</li>
+<li>
+<p>Applications include:</p>
+<ol>
+<li><em><strong>Radio Communications</strong></em>: Rejects all the frequencies apart from the desired signal.</li>
+<li><em><strong>DC power supplies</strong></em>: Used to eliminate noise in high frequency present in AC input.</li>
+<li><em><strong>Audio electronics</strong></em>: Used to channel different ranges of frequencies to woofers, speakers and tweeters.</li>
+<li><em><strong>Analog-to-digital conversion</strong></em>: Filters are placed in front of an ADC input to minimize aliasing.</li>
+</ol>
+</li>
+<li>
+<p>Some of the important terms are:</p>
+</li>
+</ul>
+<ol>
+<li><em><strong>Response Curves</strong></em>: Response curves are used to describe how a filter behaves. A response curve is simply a graph showing an attenuation ratio (VOUT / VIN) versus frequency . Attenuation is commonly expressed in units of decibels (dB). Frequency can be expressed in two forms: either the angular form ω (units are rad/s) or the more common form of f (units of Hz, i.e.. cycles per second).
+<ol start="2">
+<li><em><strong>Bandwidth (β or B.W.)</strong></em>: The bandwidth is the width of the <em>passband</em>, and the <strong>passband is the band of frequencies that do not experience significant attenuation when moving from the input of the filter to the output of the filter</strong>.</li>
+<li><em><strong>Stopband frequency (fs)</strong></em>: This is a particular frequency at which the attenuation reaches a specified value.</li>
+<li>For low-pass and high-pass filters, frequencies beyond the stopband frequency are referred to as the stopband.</li>
+<li>For band-pass and notch filters, two stopband frequencies exist. The frequencies between these two stopband frequencies are referred to as the stopband.</li>
+</ol>
+</li>
+</ol>
+<h3><a class="header" href="#types-of-filters" id="types-of-filters">TYPES OF FILTERS</a></h3>
+<ol>
+<li>
+<p><strong>Low Pass Filters</strong></p>
+</li>
+<li>
+<p><strong>High-pass Filters</strong></p>
+</li>
+<li>
+<p><strong>Bandpass Filters</strong></p>
+</li>
+<li>
+<p><strong>Band-reject Filters/Notch Filters</strong></p>
+</li>
+</ol>
+<p><img src="https://www.allaboutcircuits.com/uploads/articles/four_major_filters.jpg" alt="Figure: Types of filters" /></p>
+<p>​																			<em>Different types of filters</em></p>
+<p><img src="https://www.allaboutcircuits.com/uploads/articles/Davis_intro_to_filters_filter_types.jpg" alt="Response Curves" /></p>
+<p>​																<em>Response curves of the different filters</em></p>
+<ul>
+<li>
+<p>They can also be classified as:</p>
+<ol>
+<li><strong>Finite Impulse Response filters</strong></li>
+<li><strong>Infinite Impulse Response filters</strong></li>
+</ol>
+</li>
+</ul>
+<h4><a class="header" href="#finite-impulse-response-filters-fir" id="finite-impulse-response-filters-fir">FINITE IMPULSE RESPONSE FILTERS (FIR)</a></h4>
+<ul>
+<li>
+<p>Impulse response of finite duration.</p>
+</li>
+<li>
+<p>Provide Linear phase characteristics.</p>
+</li>
+<li>
+<p>Always stable.</p>
+</li>
+<li>
+<p>Can be used for more complex circuits.</p>
+</li>
+</ul>
+<h4><a class="header" href="#infinite-impulse-response-filters-iir" id="infinite-impulse-response-filters-iir">INFINITE IMPULSE RESPONSE FILTERS (IIR)</a></h4>
+<ul>
+<li>Impulse response of infinite duration.</li>
+<li>Non linear phase characteristics.</li>
+<li>They are unstable. </li>
+<li>Used for less complexity.</li>
+</ul>
+<h3><a class="header" href="#iir-filters" id="iir-filters">IIR FILTERS</a></h3>
+<h4><a class="header" href="#butterworth-filters" id="butterworth-filters">BUTTERWORTH FILTERS</a></h4>
+<ul>
+<li>
+<p>Designed to have a frequency response as flat as possible in the passband.</p>
+</li>
+<li>
+<p>The frequency response of the Butterworth filter is <strong>maximally flat ( has no ripples) in the passband</strong> and <strong>rolls off towards zero in the stopband</strong>.</p>
+</li>
+</ul>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/a/a8/Butterworth_filter_bode_plot.svg" alt="Butterworth bode plot" /></p>
+<h4><a class="header" href="#chebyshev-filters" id="chebyshev-filters">CHEBYSHEV FILTERS</a></h4>
+<ul>
+<li>Have a steeper roll off than Butterworth filters.</li>
+<li>Minimise the error between the idealized and the actual filter characteristic over the range of the filter with ripples in passband.</li>
+<li>Because of presence of ripple in the pass band, it is not chosen in applications needing smoother response in passband.</li>
+</ul>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/c/c2/Chebyshev_Type_I_Filter_Response_%284th_Order%29.svg" alt="" /></p>
+<h4><a class="header" href="#elliptic-filters" id="elliptic-filters">ELLIPTIC FILTERS</a></h4>
+<ul>
+<li>Equalised ripple behaviour in both passband and stop band.</li>
+<li>The amount of ripple in each band is independently adjustable, and no other filter of equal order can have a faster transition in gain between the passband and the stopband, for the given values of ripple.</li>
+<li>As the ripple in the stopband approaches 0, the filter becomes a type I Chebyshev filter. </li>
+<li>As the ripple in the passband approaches 0, the filter becomes a type II Chebyshev filter.</li>
+<li>As both ripple values approach 0, the filter becomes a Butterworth filter.</li>
+</ul>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/d/de/Elliptic_Filter_Response_%284th_Order%29.svg" alt="Elliptic response" /></p>
+<h4><a class="header" href="#bessel-filter" id="bessel-filter">BESSEL FILTER</a></h4>
+<ul>
+<li>
+<p>Analog linear filter with a maximally flat group/phase delay (maximally linear phase response), which preserves the wave shape of filtered signals in the passband.</p>
+</li>
+<li>
+<p>Transition from the pass band to the stop band is much slower than for other filters. </p>
+</li>
+<li>
+<p>But the group delay is practically constant in the passband.</p>
+</li>
+<li>
+<p>Maximizes the flatness of the group delay curve at zero frequency.</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/e/ee/Bessel4_GainDelay.png" alt="Bessel" /></p>
+<p>​										<em>A plot of the gain and group delay for a fourth-order low pass Bessel filter.</em></p>
+</li>
+</ul>
+<h3><a class="header" href="#fir-filters" id="fir-filters">FIR FILTERS</a></h3>
+<h4><a class="header" href="#hamming-and-hanning-windows" id="hamming-and-hanning-windows">HAMMING AND HANNING WINDOWS</a></h4>
+<ul>
+<li>
+<p>Window function is a mathematical function that is zero-valued outside of some chosen interval, normally symmetric around the middle of the interval, usually near a maximum in the middle, and usually tapering away from the middle.</p>
+<p><img src="https://in.tek.com/-/media/sites/default/files/u811871/blackman-harris-t.png" alt="Window function" /></p>
+</li>
+</ul>
+<h5><a class="header" href="#hanning-window" id="hanning-window">HANNING WINDOW</a></h5>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/f/f7/Window_function_and_its_Fourier_transform_%E2%80%93_Hann_%28n_%3D_0...N%29.svg" alt="Hanning window" /></p>
+<h5><a class="header" href="#hamming-window" id="hamming-window">HAMMING WINDOW</a></h5>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Window_function_and_frequency_response_-_Hamming_%28alpha_%3D_0.53836%2C_n_%3D_0...N%29.svg" alt="Hamming window" /></p>
+<h5><a class="header" href="#difference" id="difference">DIFFERENCE</a></h5>
+<ul>
+<li>Hanning window touches zero at both ends, removing any discontinuity. The Hamming window stops just shy of zero, meaning that the signal will still have a slight discontinuity.</li>
+</ul>
+<p><img src="https://in.tek.com/-/media/sites/default/files/u811871/hamming-t.png" alt="Comparison" /></p>
+<h3><a class="header" href="#comparing-iir-filters" id="comparing-iir-filters">COMPARING IIR FILTERS</a></h3>
+<ul>
+<li>
+<p>Here is an image showing the gain of a discrete-time Butterworth filter next to other common filter types. All of these filters are fifth-order.</p>
+</li>
+<li>
+<p>The Butterworth filter rolls off more slowly around the cut-off frequency than the Chebyshev filter or the Elliptic filter, but without ripple.</p>
+</li>
+<li>
+<p>Chebyshev filters are sharper than the Butterworth filter; they are not as sharp as the elliptic one, but they show fewer ripples over the bandwidth.</p>
+</li>
+<li>
+<p>Elliptic filters are sharper than all the others, but they show ripples on the whole bandwidth.</p>
+</li>
+</ul>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Filters_order5.svg" alt="Comparison" /></p>
+<h3><a class="header" href="#advantages-of-iir-over-fir-filters" id="advantages-of-iir-over-fir-filters">ADVANTAGES OF IIR OVER FIR FILTERS</a></h3>
+<ul>
+<li>IIR filters achieve desired filtering characteristics using lesser memory.</li>
+<li>Has higher computational efficiency and shorter delay.</li>
+<li>Can be used to implement analog filter responses.</li>
+</ul>
+<h1><a class="header" href="#task-1-2" id="task-1-2">Task 1</a></h1>
+<h2><a class="header" href="#what-is-an-audio-made-of" id="what-is-an-audio-made-of">What is an audio made of?</a></h2>
+<h3><a class="header" href="#introduction" id="introduction">INTRODUCTION</a></h3>
+<ul>
+<li>Audio signal is an electrical signal that represents a sound.</li>
+<li>Sound is a variation in the instantaneous air pressure .The variations are of  air pressure above and below average (barometric) air pressure.</li>
+<li>Audio is  an electrical (usually voltage) waveform that is analogous to the sound pressure waveform.</li>
+<li>Audio signals are synthesized by a transducer such as a microphone which converts the sound pressure variations into voltage variations.</li>
+<li>A higher voltage represents a higher pressure, and a lower voltage represents a lower pressure.</li>
+<li>The audio signal is usually of  two types<br />
+*  Analog audio
+*  Digital audio</li>
+<li>Analog audio are sampled and encoded into digital audio. Digital signal are represented as  a series of binary numbers.</li>
+<li><img src="https://images.squarespace-cdn.com/content/v1/533c90d9e4b016f70ff42212/1423252355108-J79VL8DNHMJ82VV8NMIE/ke17ZwdGBToddI8pDm48kAY0qAr_83SBz1b9PtrfKUFZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpw4_8ptcGnAf73aPNwrjYkVDPBmqIdgnJiW8pkVfQg_VCNjfDgiyOZBTUOpTJOfRP0/image-asset.jpeg?format=1000w" alt="img" /></li>
+<li>In a digital system, an <strong>ADC</strong> converts physical sound to a digital signal using pulse code modulation/ any other encoding standard.</li>
+<li><strong>DAC</strong> will convert digital audio signal back to physical audio through an amplifier and speaker.</li>
+<li>Components of a digital audio system include:
+<ol>
+<li>Compression</li>
+<li>Storage </li>
+<li>Processing
+4. Transmission</li>
+</ol>
+</li>
+</ul>
+<h1><a class="header" href="#task-2" id="task-2">TASK 2</a></h1>
+<p>Audio Processing/Pre-processing </p>
+<p>○ Noise filtering/basic filtering </p>
+<p>○ Onset Detection </p>
+<p>○ Feature Extraction </p>
+<p>○ Spatial filtering - smoothing and sharpening </p>
+<p>● Notes in Markdown for theory on above topics for future reference </p>
+<p>● Develop examples and assignments on above topics to realize them </p>
+<p>○ Cocktail Party Problem</p>
+<h1><a class="header" href="#feature-extraction" id="feature-extraction"><strong>Feature Extraction</strong></a></h1>
+<p>Extraction of features is a very important part in analyzing and finding relations between different things. The data provided of audio cannot be understood by the models directly to convert them into an understandable format feature extraction is used. It is a process that explains most of the data but in an understandable way. Feature extraction is required for classification, prediction and recommendation algorithms.</p>
+<p><strong>The audio signal is a three-dimensional signal in which three axes represent time, amplitude and frequency.</strong></p>
+<p><img src="Task_2/Notes/Feature_extraction/fig1.png" alt="fig1" /></p>
+<h2><a class="header" href="#zero-crossing-rate" id="zero-crossing-rate"><strong>Zero Crossing Rate</strong></a></h2>
+<p>The Zero Crossing Rate is the rate of sign-changes along the signal. i.e. the rate at which the signal changes from positive to negative or vise versa. This feature has been used heavily in both speech recognition and music information retrieval. It usually has values for highly percussive sounds like those in metal and rock;</p>
+<p><strong>Example implementation:</strong></p>
+<pre><code class="language-python"># zero crossings
+import librosa
+path = 'audio.wav'
+x, sr = librosa.load(path)
+z_crossings = librosa.zero_crossing(x[:], pad = False)
+print(z_crossing)
+</code></pre>
+<h2><a class="header" href="#spectral-centroid" id="spectral-centroid">Spectral Centroid</a></h2>
+<p>It indicates where the &quot;Centre of mass&quot; for a sound is located and is calculated as the weighted mean of the <em>frequencies</em> in the music are same throughout then spectral centroid would be around a centre and if there are high frequencies at the end of sound then the centroid would be towards the end;</p>
+<p><strong>Example</strong>:</p>
+<pre><code class="language-python"># Spectral centroid
+import sklearn
+spectral_centroids = librosa.features.spectral_centroid(x, sr = sr)[0]
+
+# Computing the time variable for visualization
+frames = range(len(spectral_centroids))
+t = librosa.frames_to_time(frames)
+
+# Normalising the spectral centroid for visualisation
+def normalize(x, axis=0):
+    return sklearn.preprocessing.minmax_scale(x, axis=axis)
+
+#Plotting the Spectral Centroid along the waveform
+librosa.display.waveplot(x, sr=sr, alpha=0.4)
+plt.plot(t, normalize(spectral_centroids), color='r')
+</code></pre>
+<h2><a class="header" href="#spectral-rolloff" id="spectral-rolloff">Spectral Rolloff</a></h2>
+<p>Spectral rolloff is the frequency below which a specified percentage of the total spectral energy, e.g. 85%, lies.</p>
+<p><strong>Example</strong>:</p>
+<pre><code class="language-python">spectral_rolloff = librosa.feature.spectral_rolloff(x, sr=sr)[0]
+librosa.display.waveplot(x, sr=sr, alpha=0.4)
+plt.plot(t, normalize(spectral_rolloff), color='r')
+</code></pre>
+<h2><a class="header" href="#mfcc-mel-frequency-cepstral-coefficients" id="mfcc-mel-frequency-cepstral-coefficients">MFCC (Mel-Frequency Cepstral Coefficients)</a></h2>
+<p>This feature is one of the most important method to extract a feature of an audio signal and is used majorly whenever working on audio signals. The mel frequency cepstral coefficients (MFCCs) of a signal are a small set of features (usually about 10–20) which <em>concisely describe the overall shape of a spectral envelope</em>.</p>
+<p>MFCCs are commonly derived as follows:</p>
+<ol>
+<li>Take the Fourier transform of (a windowed excerpt of) a signal.</li>
+<li>Map the powers of the spectrum obtained above onto the mel scale, using triangular overlapping windows.</li>
+<li>Take the logs of the powers at each of the mel frequencies.</li>
+<li>Take the discrete cosine transform of the list of mel log powers, as if it were a signal.</li>
+<li>The MFCCs are the amplitudes of the resulting spectrum.</li>
+</ol>
+<p><strong>Example:</strong></p>
+<pre><code class="language-python">mfccs = librosa.feature.mfcc(x, sr=sr)
+#print(mfccs.shape)
+
+#Displaying  the MFCCs:
+librosa.display.specshow(mfccs, sr=sr, x_axis='time')
+</code></pre>
+<h2><a class="header" href="#other-important-features" id="other-important-features">Other Important features</a></h2>
+<ul>
+<li>
+<p>LPCC</p>
+</li>
+<li>
+<p>MFCC</p>
+</li>
+</ul>
+<h1><a class="header" href="#audio-feature-extraction" id="audio-feature-extraction">Audio Feature Extraction</a></h1>
+<ul>
+<li>
+<p>Reduce audio data by extracting information about:</p>
+<ol>
+<li>Pitch</li>
+<li>Timbre</li>
+<li>Rhythm</li>
+</ol>
+</li>
+<li>
+<p>Audio descriptors(MPEG7) can also give better insight on audio.</p>
+<ul>
+<li>Low-level Descriptors
+<ol>
+<li>Spectral features</li>
+<li>Parametric features</li>
+<li>Temporal features</li>
+</ol>
+</li>
+<li>High Level Descriptors
+<ol>
+<li>General sound recognition </li>
+<li>Instrumental Timbre</li>
+<li>Spoken content</li>
+<li>Audio signature description</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h2><a class="header" href="#best-reported-accuracy" id="best-reported-accuracy">Best reported accuracy</a></h2>
+<p>​	As referred to a <a href="https://hal.inria.fr/hal-01456201/file/toConf.pdf">conference paper</a> published in 2017, </p>
+<ul>
+<li>For environmental sounds, features obtained using a combination of MFCC(Mel-frequency cepstrum coefficients) and MP(Matching Pursuit) features.</li>
+<li>MFCC is obtained by first computing the short time Fourier transform of the signal. The spectrum values of each frame are then grouped into bands using a set of triangular filters .</li>
+</ul>
+<h2><a class="header" href="#mel-features" id="mel-features">MEL Features</a></h2>
+<h3><a class="header" href="#mfcc" id="mfcc">MFCC</a></h3>
+<p>In sound processing, the mel-frequency cepstrum (MFC) is a representation of the short-term power spectrum of a sound, based on a linear cosine transform of a log power spectrum on a nonlinear mel scale of frequency.
+Mel-frequency cepstral coefficients (MFCCs) are coefficients that collectively make up an MFC. They are derived from a type of cepstral representation of the audio clip (a nonlinear &quot;spectrum-of-a-spectrum&quot;).</p>
+<p><img src="https://github.com/kalindkaria/eysip2020-33-Audio_ML/blob/dev/Feature_Extraction/Capture3.JPG" alt="MFCC" /></p>
+<h3><a class="header" href="#melspectrogram" id="melspectrogram">Melspectrogram</a></h3>
+<p><img src="https://github.com/kalindkaria/eysip2020-33-Audio_ML/blob/dev/Feature_Extraction/Capture4.JPG" alt="Melspectrogram1" /></p>
+<h3><a class="header" href="#chroma-features" id="chroma-features">Chroma Features</a></h3>
+<p>In music, the term chroma feature or chromagram closely relates to the twelve different pitch classes. Chroma-based features, which are also referred to as &quot;pitch class profiles&quot;, are a powerful tool for analyzing music whose pitches can be meaningfully categorized (often into twelve categories) and whose tuning approximates to the equal-tempered scale. One main property of chroma features is that they capture harmonic and melodic characteristics of music, while being robust to changes in timbre and instrumentation.</p>
+<h2><a class="header" href="#key-differences-among-speech-music-and-environmental-sounds" id="key-differences-among-speech-music-and-environmental-sounds">Key Differences among Speech, Music and Environmental Sounds</a></h2>
+<p>Referring to <a href="https://www.researchgate.net/publication/303015866_A_Review_of_Physical_and_Perceptual_Feature_Extraction_Techniques_for_Speech_Music_and_Environmental_Sounds">this</a> paper:</p>
+<ul>
+<li>Firstly, music and speech signals present a certain periodicity that can be observed when analyzing
+these signals in the time domain (see Figure 3). Although with some exceptions (e.g., some natural
+sounds such as bird chirps or cricket sounds), the periodicity in environmental sounds may not be
+so evident.</li>
+</ul>
+<p><img src="https://github.com/kalindkaria/eysip2020-33-Audio_ML/blob/dev/Feature_Extraction/Capture.JPG" alt="difference" /></p>
+<ul>
+<li>Secondly, when analysed in the frequency domain, it can be generally determined that the complexity of the spectrum of environmental sounds (e.g., the sound of a passing car) is notably larger than that of speech or music signals, as depicted in Figure 4. Moreover, it can be observed that speech and music signals usually present harmonic structures in their spectra, a trait that is not that common in environmental sounds, as mentioned before.</li>
+</ul>
+<p><img src="https://github.com/kalindkaria/eysip2020-33-Audio_ML/blob/dev/Feature_Extraction/Capture2.JPG" alt="Spectrum" /></p>
+<ul>
+<li>
+<p>Thirdly, notice that both speech and music sounds are composed of a limited dictionary of sound units: phonemes and notes, respectively. On the contrary, the range of environmental sounds is theoretically infinite, since any occurring sound in the environment may be included in this category (i.e., originated from noise, artificial or natural sound sources, see Figure 1).</p>
+</li>
+<li>
+<p>Furthermore, there exists a key difference between these types of signals. In speech and music, phonemes and musical notes are combined so as to obtain meaningful sequences that are actually transmitting a particular semantic or aesthetic message. As opposed, the sequences on environmental sounds do not follow any rule or predefined grammar, although they may convey some kind of meaning (e.g., bird chirps or cricket sounds). Unlike speech and music, also other important information is unknown, such as the duration of the sound events or the proportion between harmonic and non-harmonic spectral structure.</p>
+</li>
+</ul>
+<h2><a class="header" href="#onset-detection-methods" id="onset-detection-methods">ONSET DETECTION METHODS</a></h2>
+<p>Approaches to onset detection can operate in the <a href="https://en.wikipedia.org/wiki/Time_domain">time domain</a>, <a href="https://en.wikipedia.org/wiki/Frequency_domain">frequency domain</a>, <a href="https://en.wikipedia.org/wiki/Phase_(waves)">phase</a> domain, or <a href="https://en.wikipedia.org/wiki/Complex_plane">complex domain</a>, and include looking for:</p>
+<ul>
+<li>Increases in spectral energy</li>
+<li>Changes in spectral energy distribution (<a href="https://en.wikipedia.org/wiki/Spectral_flux">spectral flux</a>) or <a href="https://en.wikipedia.org/wiki/Phase_(waves)">phase</a></li>
+<li>Changes in detected pitch - e.g. using a <a href="https://en.wikipedia.org/wiki/Polyphony">polyphonic</a> <a href="https://en.wikipedia.org/wiki/Pitch_detection_algorithm">pitch detection algorithm</a></li>
+<li>Spectral patterns recognisable by <a href="https://en.wikipedia.org/wiki/Machine_learning">machine learning</a> techniques such as <a href="https://en.wikipedia.org/wiki/Neural_network">neural networks</a>.</li>
+</ul>
+<p><strong>Transients vs. Onsets vs. Attacks</strong></p>
+<p>A central issue here is to make a clear distinction between the related concepts of transients, onsets and attacks because different applications have different needs. The similarities and differences between these key concepts are important to consider; it is similarly important to categorize all related approaches. Fig. 1 shows, in the simple case of an isolated note, how one could differentiate these notions.</p>
+<ul>
+<li>The <strong>attack</strong> of the note is the time interval during which the amplitude envelope increases.</li>
+<li>The concept of <strong>transient</strong> is more difficult to describe precisely. As apreliminary informal definition, transients are short intervals during which the signal evolves quickly in some nontrivial or relatively unpredictable way. In the case of acoustic instruments, the transient often corresponds to the period during which the excitation (e.g., a hammer strike) is applied and then damped, leaving only the slow decay at the resonance frequencies of the body. Central to this time duration problem is the issue of the useful time resolution: we will assume that the human ear cannot distinguish between two transients less than 10 ms apart. Note that the release or offset of a sustained sound can also be considered a transient period.</li>
+<li>The <strong>onset</strong> of the note is a single instant chosen to mark the temporally extended transient. In most cases, it will coincide with the start of the transient, or the earliest time at which the transient can be reliably detected.</li>
+</ul>
+<p>Figure shows, in the simple case of an isolated note, how one could differentiate these notions.</p>
+<p><img src="Task_2/Notes/Onset_Detection/./fig1.png" alt="fig1" /></p>
+<h3><a class="header" href="#algorithm-for-onset-detection" id="algorithm-for-onset-detection">ALGORITHM FOR ONSET DETECTION</a></h3>
+<p>Usually this algorithm is used for onset detection:</p>
+<p><strong>1. PREPROCESSING</strong></p>
+<ul>
+<li>The concept of pre-processing implies the transformation of the original signal in order to accentuate or attenuate various aspects of the signal according to their relevance to the task in hand. </li>
+<li>It is an optional step that derives its relevance from the process or processes to be subsequently performed. There are a number of different treatments that can be applied to a musical signal in order to facilitate the task of onset detection. </li>
+<li>There are a number of different treatments that can be applied to a musical signal, but <em>Multiple Bands</em> and <em>Transient / Steady state separation</em> are communally used.</li>
+</ul>
+<p><strong>2 . REDUCTION</strong></p>
+<ul>
+<li>In the context of onset detection, the concept of reduction refers to the process of transforming the audio signal into a highly subsampled detection function which manifests the occurrence of transients in the original signal. </li>
+<li>This is the key process in a wide class of onset detection schemes and will therefore be the focus of most of our review. We will broadly divide reduction methods in two groups : 
+<ol>
+<li><em>Methods based on the use of explicitly predefined signal features</em></li>
+<li>Methods <em>based on probabilistic signal models.</em></li>
+</ol>
+</li>
+</ul>
+<p><strong>3. PEAK-PICKING</strong></p>
+<ul>
+<li>If the detection function has been suitably designed, then onsets or other abrupt events will give rise to well-localized identifiable features in the detection function. </li>
+<li>Commonly, these features are local maxima (i.e. peaks), generally subject to some level of variability in size and shape, and masked by ‘noise’, either due to actual noise in the signal, or other aspects of the signal not specifically to do with onsets, such as vibrato. </li>
+<li>Therefore a robust peak-picking algorithm is needed to estimate the onset times of events within the analysis signal. We will divide the process of peak-picking a detection function in three steps: <em><strong>post-processing</strong></em>,  <em><strong>thresholding</strong></em>, and a <em><strong>final decision process</strong></em>.</li>
+</ul>
+<p><img src="Task_2/Notes/Onset_Detection/./fig2.png" alt="fig2" /></p>
+<h2><a class="header" href="#onset-detection-functions" id="onset-detection-functions">Onset Detection Functions</a></h2>
+<p>Onset detection function(ODF) is primarily an undersampled version of the original music signal. <em>We divide the signal into partially overlapping frames and the ODF consists of one value for each frame. By the definition of an onset, we can say that onset detection is the process of identifying which parts of a signal are relatively unpredictable.</em> </p>
+<p>Hence, each value in an ODF should give a good indication as to the measure of the unpredictability of that frame. The vector of these values (obtained using methods discussed later) is passed to the peak-detection algorithm for onset detection.</p>
+<p><img src="Task_2/Notes/Onset_Detection/./fig3.png" alt="fig3" /></p>
+<h3><a class="header" href="#types-of-odfs" id="types-of-odfs">Types of ODFs</a></h3>
+<p>Some standard ODFs are: </p>
+<ol>
+<li>Energy Method</li>
+<li>Spectral Difference Method</li>
+<li>Complex Domain Method</li>
+</ol>
+<p><strong>Energy Method</strong> : </p>
+<ul>
+<li>This is the most simple and computationally efficient method. In this method, we assume that <em>the onsets correspond to a higher energy component than the steady state notes in the music signal.</em> </li>
+</ul>
+<p><strong>Spectral Difference Method</strong> : </p>
+<ul>
+<li>
+<p>This method is successful in detecting onsets in polyphonic signals and <em>soft</em> onsets.</p>
+</li>
+<li>
+<p>This is achieved by identifying time varying changes in a frequency domain representation of audio signal.</p>
+</li>
+</ul>
+<p>**Complex Domain Method **:</p>
+<ul>
+<li>Insted of making predictions only on the magnitudes like a spectral difference method, this method attempts to improve the prediction for the next value of a given bin using combined magnitude and phase information. </li>
+</ul>
+<h1><a class="header" href="#spatial-filtering" id="spatial-filtering">Spatial Filtering</a></h1>
+<ul>
+<li>
+<p>Spatial filtering is an image processing technique for changing the intensities of a pixel according to the intensities of the <em>neighboring pixels</em>. </p>
+</li>
+<li>
+<p>Using spatial filtering, the image is transformed <strong>(convoluted)</strong> based on a kernel H which has certain height and width (x,y), defining both the area and the weight of the pixels within the initial image that will replace the value of the image. The corresponding process is to convolve the input image I(i,j) with the filter function H(x,y), to produce the new filtered image:</p>
+<p>$$
+I' (i, j) = I(i, j) * H(x, y)
+$$</p>
+<p><img src="Task_2/Notes/Spatial_Filtering/./fig1.png" alt="fig1" /></p>
+</li>
+</ul>
+<h2><a class="header" href="#classification" id="classification">Classification</a></h2>
+<ul>
+<li>
+<p>Classification on the basis of linearity
+1.  Linear Spatial Filter
+2.  Non-Linear Spatial Filter</p>
+</li>
+<li>
+<p>General Classification</p>
+<ol>
+<li>
+<p>Smoothing Spatial Filters</p>
+<ul>
+<li>
+<p>Mean Filter (or smoothing linear filter)</p>
+<p>-&gt; Averaging Filter</p>
+<p>-&gt; Weighted Averaging Filter</p>
+</li>
+<li>
+<p>Order Statistic Filter</p>
+<p>-&gt; Minimum Filter</p>
+<p>-&gt; Maximum Filter</p>
+<p>-&gt; Median Filter</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Sharpening Spatial Filters (Derivative Filters)</p>
+<ul>
+<li>First Order Derivative</li>
+<li>Second Order Derivative</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h2><a class="header" href="#linear-spatial-filters" id="linear-spatial-filters">Linear Spatial Filters</a></h2>
+<p>The result is the sum of products of the mask coefficients with the corresponding pixels directly under the mask.</p>
+<p>The coefficient w(0,0) coincides with image value f(x,y), indicating that the mask is centered at (x,y) when the computation of sum of products takes place.</p>
+<p>For a mask of size m*n, we assume that m-2a+1 and n=2b+1, where a and b are non-negative integer. Then m and n are odd.</p>
+<p>In general, linear filtering of an image f of size M*N with a filter mask of size m*n is given by the expression:
+$$
+g(x, y) = \sum_{s = -1}^{a} \sum_{t = -b}^{b} w(s,t) \ *\ f (x+s, y+t)
+$$
+The process of linear filtering similar to a frequency domain concept called &quot;convolution&quot;</p>
+<h2><a class="header" href="#non-linear-spatial-filter" id="non-linear-spatial-filter">Non Linear Spatial Filter</a></h2>
+<p>Nonlinear spatial filters also operate on neighborhoods, and the mechanics of sliding a mask past an image are the same as was just outlined.</p>
+<p>The filtering operation is based conditionally on the values of the pixels in the neighborhood under consideration</p>
+<h2><a class="header" href="#smoothing-spatial-filters" id="smoothing-spatial-filters">Smoothing Spatial Filters</a></h2>
+<p>Smoothing filters are used for flurring and for noise reduction</p>
+<ul>
+<li>Blurring is used in preprocessing steps, such as removal of small details from an image prior to object extraction and bridiging of small gaps in lines or curves.</li>
+<li>Noise reduction can be accomplished by blurring</li>
+</ul>
+<h3><a class="header" href="#mean-filters" id="mean-filters">Mean Filters</a></h3>
+<p>Here the idea is replacing the value of every pixel in an image by the average of the gray levels in the neighborhood defined by the filter mask.</p>
+<p><img src="Task_2/Notes/Spatial_Filtering/./fig2.png" alt="fig2" /></p>
+<p>The general implementation for filtering an M*N image with weighted averaging filter of size m*n is given by expression: </p>
+<p><img src="Task_2/Notes/Spatial_Filtering/./fig3.png" alt="fig3" /></p>
+<h3><a class="header" href="#order-statistic-filters" id="order-statistic-filters">Order Statistic Filters</a></h3>
+<p>There are mainly 3 types of order statistic filters: max, min and median order statistic filter. As name suggests we replace the middle element of the window by maximum, minimum or median value respectively.</p>
+<h2><a class="header" href="#sharpening-spatial-filters" id="sharpening-spatial-filters">Sharpening Spatial Filters</a></h2>
+<ul>
+<li>
+<p>Purpose of sharpening spatial filters are opposite of the smoothing filters. its main focus is <em>removal of blurring and highlight the edges</em>.</p>
+</li>
+<li>
+<p>We are interested in the behavior of these derivatives in areas of constant gray level(flat segments), at the onset and end of discontinuities(step and ramp discontinuities), and along gray-level ramps. </p>
+</li>
+<li>
+<p>These types of discontinuities can be noise points, lines, and edges.</p>
+</li>
+</ul>
+<h3><a class="header" href="#first-order-derivative" id="first-order-derivative">First order derivative:</a></h3>
+<ul>
+<li>
+<p>Must be zero in flat segments </p>
+</li>
+<li>
+<p>Must be nonzero at the onset of a gray-level step or ramp</p>
+</li>
+<li>
+<p>Must be nonzero along ramps.</p>
+</li>
+</ul>
+<p>Basic definition of the first order derivative of a one-dimentional function f(x) is:</p>
+<p><img src="Task_2/Notes/Spatial_Filtering/./fig4.png" alt="fig4" /></p>
+<h3><a class="header" href="#second-order-derivative" id="second-order-derivative">Second order derivative:</a></h3>
+<ul>
+<li>
+<p>Must be zero in flat areas.</p>
+</li>
+<li>
+<p>Must be nonzero at the onset and end of a gray-level step or ramp.</p>
+</li>
+<li>
+<p>Must be zero along ramps of constant slope.</p>
+</li>
+</ul>
+<p>Definition:</p>
+<p><img src="Task_2/Notes/Spatial_Filtering/./fig5.png" alt="fig5" /></p>
+<h1><a class="header" href="#cocktail-party-problem" id="cocktail-party-problem">Cocktail Party problem</a></h1>
+<h2><a class="header" href="#audio-source-separation" id="audio-source-separation">Audio Source Separation</a></h2>
+<p>Audio source separation is the process of extracting individual sound sources (e. g., a single flute) from a mixture of sounds (e. g., a recording of a concert band using a single microphone).</p>
+<h3><a class="header" href="#using-rpca" id="using-rpca">Using RPCA</a></h3>
+<pre><code class="language-python">import numpy as np
+
+import matplotlib.pyplot as plt
+
+from untwist.data import Wave, RatioMask
+
+from untwist.transforms import STFT, ISTFT
+
+from untwist.factorizations import RPCA
+
+
+
+stft =STFT()
+
+istft =ISTFT()
+
+rpca =RPCA(iterations = 100)
+
+
+ x=Wave.read(&quot;mix.wav&quot;)
+
+ X=stft.process(x)
+
+
+# this may take some time
+
+ (L,S) =rpca.process(X.magnitude())
+
+
+ M=RatioMask(np.abs(S), np.abs(L))
+
+ v=istft.process(X *M)
+
+ v.write(&quot;vocal_estimate.wav&quot;)
+ 
+</code></pre>
+<h2><a class="header" href="#references" id="references">References</a></h2>
+<ol>
+<li><a href="https://www.researchgate.net/publication/308054917_Untwist_A_new_toolbox_for_audio_source_separation">Research Gate</a></li>
+</ol>
+<h1><a class="header" href="#task-3" id="task-3">Task 3</a></h1>
+<h1><a class="header" href="#task-3-1" id="task-3-1">Task 3</a></h1>
+<h2><a class="header" href="#urban-sounds-classification" id="urban-sounds-classification">Urban Sounds Classification</a></h2>
+<h3><a class="header" href="#dataset" id="dataset">Dataset</a></h3>
+<h4><a class="header" href="#about-the-dataset" id="about-the-dataset">About the dataset</a></h4>
+<p>Link to uploaded dataset: https://drive.google.com/folderview?id=14u-bfL8kPRUDggPCSVio25Bw7LSuoChK</p>
+<p>this dataset contains 8732 labelled sound excerpts (&lt;=4s) of urban sounds from 10 classes: air_conditioner, car_horn, children_playing, dog_bark, drilling, engine_idling, gun_shot, jackhammer, siren, and street_music</p>
+<p>According to the original paper, sound excerpts are taken from <a href="http://www.freesound.org/">www.freesound.org</a> and are already pre-sorted into ten folds for cross-validation.</p>
+<p>The meta-data contains 8 columns.</p>
+<ul>
+<li>slice_file_name: name of the audio file</li>
+<li>fsID: FreesoundID of the recording where the excerpt is taken from</li>
+<li>start: start time of the slice</li>
+<li>end: end time of the slice</li>
+<li>salience: salience rating of the sound. 1 = foreground, 2 = background</li>
+<li>fold: The fold number (1–10) to which this file has been allocated</li>
+<li>classID:
+0 = air_conditioner
+1 = car_horn
+2 = children_playing
+3 = dog_bark
+4 = drilling
+5 = engine_idling
+6 = gun_shot
+7 = jackhammer
+8 = siren
+9 = street_music</li>
+<li>class: class name</li>
+<li>There are two classes (car_horn, gun_shot) which have a bit less than half amount of entries compared to other 8 classes.</li>
+</ul>
+<p><img src="https://miro.medium.com/max/1400/1*C2VJxBRDrwz1ozRvSj9gkg.png" alt="" /></p>
+<h4><a class="header" href="#variables-in-the-data" id="variables-in-the-data">Variables in the data</a></h4>
+<ul>
+<li>
+<p>The sampling rate, bit depth, and number of channels are the same as those of the original file uploaded to Freesound (and hence may vary from file to file).”</p>
+</li>
+<li>
+<p>It means there might be many different sample rates in the data, which means even with the same duration, the number of samples will be different. </p>
+</li>
+<li>
+<p>Moreover, different bit depth means, they can take different rage of values. </p>
+</li>
+<li>
+<p>Some of them might be stereo, while others are mono.</p>
+</li>
+</ul>
+<h4><a class="header" href="#pre-processing-to-be-applied" id="pre-processing-to-be-applied">Pre-processing to be applied</a></h4>
+<ol>
+<li>Convert everything to Mono audio.</li>
+<li>Sample rate conversion to 22.05 khz.</li>
+<li>Equalise bit depth.</li>
+</ol>
+<h2><a class="header" href="#references-1" id="references-1">References</a></h2>
+<ol>
+<li><a href="https://towardsdatascience.com/urban-sound-classification-part-1-99137c6335f9">TowardsDataScience- Part 1</a></li>
+<li><a href="https://towardsdatascience.com/urban-sound-classification-part-2-sample-rate-conversion-librosa-ba7bc88f209a">TowardsDataScience- Part 2</a></li>
+</ol>
+<h1><a class="header" href="#task-4" id="task-4">TASK 4</a></h1>
+<p>Challenge Project </p>
+<p>● Identify the onset of “ Intro ” in a TV show and develop a skip button/interface/UI </p>
+<p>● Study the already present systems (if any): how Netflix and Amazon Prime do it? </p>
+<p>● Develop proper tutorial, solutions and well documented code for the same</p>
+<h1><a class="header" href="#intro-detection-and-skipping-in-videos" id="intro-detection-and-skipping-in-videos">Intro Detection and Skipping in Videos</a></h1>
+<p>Media consumption has shown a tremendous increase in recent years, and with this increase, new audience expectations are put on the features offered by media-streaming services. One of these expectations is the ability to skip redundant content, which most probably is not of interest to the user. In this work, intro sequences which have sufficient length and a high degree of image similarity across all episodes of a show is targeted for detection.</p>
+<h2><a class="header" href="#existing-solutions" id="existing-solutions">Existing Solutions</a></h2>
+<p><strong>1. With the Help of Black Screen:</strong></p>
+<p>It tries to detect intros using two types of input available: video frames and audio signals.</p>
+<ul>
+<li>Video Frames: Usually there is always a black screen just after the intro ends, so it averages over the greyscale values for all video frames upto a few minutes and then takes the minimum of these values. Since the black screen will have the lowest intensity value, we get the time when our intro ends.</li>
+<li>Audio Signals: So the above black screen is accompanied with a 0.5-1 second of silence gap. They take the root mean square of sound energy and zero crossing rate upto a few minutes and then compare their values and if both of them are below a 'certain' threshold for 0.5-1 second, then that gap is termed as the silent gap.</li>
+</ul>
+<p><strong>2. Netflix's Algo:</strong></p>
+<p>To detect Intro first the algorithm looks for similar frames across multiple video assets. Then the visual fingerprints are extracted from a collection of certain frames along with their subsequent image histograms. These fingerprints are later used as a comparative model, if similar frames appear in another video they are marked as either the beginning or end of the intro sequence.</p>
+<p><strong>3. Notrobro:</strong> (No intro bro)</p>
+<p>This algorithm was developed in GSoC'18 in project by XBMC Foundation (Kodi)</p>
+<p>It is basically, if we have 2 episodes of the same TV show, then we collect all the frames at the scene change points, compare them efficiently by computing <a href="https://github.com/bjlittle/imagehash">image hashes</a> and output the start/end times where the frames match. The basic idea behind this is that two episodes of the same TV show are bound to have matching frames during the duration of the intro/outro, so we can utilize this property to generate the intro/outro timings of all the episodes of a show.</p>
+<p><strong>4. Plex's approch:</strong></p>
+<p>They used audio(title song) for intro detection. First they created audio print of theme song and then matched against the audio of the 10 minutes of that episode.</p>
+<h1><a class="header" href="#intro-skip-button" id="intro-skip-button">Intro Skip Button</a></h1>
+<ul>
+<li>
+<p>Can be done using Cross correlation and onset detection.</p>
+</li>
+<li>
+<p>Some possible ways of doing this are</p>
+</li>
+</ul>
+<h2><a class="header" href="#audio-tagging" id="audio-tagging">Audio Tagging</a></h2>
+<p>This is the most likely method. Netflix takes the audio sample of a show’s intro — Friends for example, and queries all the episodes to find where that audio sample appears. For accuracy they can apply conditions like only looking for the audio in the first 2 mins. To be even more accurate to make sure the intro’s beginning has the shows’ title for example, apply a little computer vision.</p>
+<h2><a class="header" href="#machine-learning" id="machine-learning"><strong>Machine Learning</strong></a></h2>
+<p>The company is all about machine learning, from understanding what users like, don’t like, tracking behaviour, offering recommendations etc. </p>
+<p>We can consider the possibility Netflix is learning just from the show Friends (or a base show) and teaching a machine to identify what an intro is without feeding it the audio sample or any visual cues.</p>
+<p>So the machine learning algo will discover on its own to apply what it learned from Friends (a base show) to a show like Fraiser or The Office. It will identify an audio sample appearing on all episodes (pattern) around the same time (condition) mixed with some visual cues (condition) like the show’s title.</p>
+<h2><a class="header" href="#audio-fingerprinting" id="audio-fingerprinting">Audio Fingerprinting</a></h2>
+<h3><a class="header" href="#shazam" id="shazam">Shazam</a></h3>
+<p>One of the first algorithms developed in the industry was developed by researchers from <a href="https://www.shazam.com/">Shazam</a>. Their solution is to identify the strongest peaks in the spectrogram, and to store the relative signatures of these peaks. The algorithm is illustrated in the image below:</p>
+<p><img src="https://miro.medium.com/max/60/1*KDAXaLmemK_DxoB1Lh0nzw.png?q=20" alt="img" /></p>
+<p><img src="https://miro.medium.com/max/9754/1*KDAXaLmemK_DxoB1Lh0nzw.png" alt="img" /></p>
+<p>Red circles indicate the strongest peaks and red lines connect peaks that are close to each other. The result is a “spider web” over the spectrogram. The web is much sparser than the original spectrogram and can therefore be stored more efficiently. Furthermore, the web is robust to distortions like white noise, since that will have a relatively small impact on the strongest peaks. The web therefore acts like an audio fingerprint.</p>
+<p>Some challenges remain. For instance, it is not immediately clear just how many peaks and connections we should store. The more intricate the web we create, the larger the dataset and the harder it is to compare with a reference. However, if the web is made simpler, the risk that it is impacted by noise increases, as well as the chance of a <em>false positive:</em> falsely reporting a match with a reference.</p>
+<p>Furthermore, although many types of noise will not impact the strongest peaks, some distortions will shift or modify even the strongest peaks (for instance, low quality speakers). The web may also break if a strong burst of noise (for instance, someone talking) takes out an essential section.</p>
+<h2><a class="header" href="#audio-matching" id="audio-matching">Audio Matching</a></h2>
+<p>Once the fingerprints have been extracted, the next challenge is to identify the content to which the fingerprint belongs. This process is often called audio matching (although arguably, it should be called fingerprint matching). In order to perform the matching, we must first establish a <em>reference database</em>. Essentially, the reference database is acquired by extracting fingerprints from the reference content. The reference content may be pre-existing (e.g. a film), or could be a live feed (e.g. a TV channel). The size of the reference database will generally determine the solution architecture.</p>
+<h1><a class="header" href="#task-5" id="task-5">TASK 5</a></h1>
+<p>Audio Captioning </p>
+<p>● Caption the provided audio/video files </p>
+<p>● These captions then can be utilised to jump into the particular section of the audio/video sample</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            var socket = new WebSocket("ws://localhost:3001");
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+        
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+        
+        
+
+    </body>
+</html>
